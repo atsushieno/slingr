@@ -54,7 +54,6 @@
     <Compile Include="System\UriTemplateMatchException.cs" />
     <Compile Include="System\UriTemplateTable.cs" />
     <Compile Include="MonoTODOAttribute.cs" />
-    <Compile Include="Driver.cs" />
     <Compile Include="System.Runtime.Serialization.Json\DataContractJsonSerializer.cs" />
     <Compile Include="System.Runtime.Serialization.Json\IXmlJsonReaderInitializer.cs" />
     <Compile Include="System.Runtime.Serialization.Json\IXmlJsonWriterInitializer.cs" />
