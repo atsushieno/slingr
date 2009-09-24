@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F5355FBD-9FEB-4830-8F1A-FC966A7356A6}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>slingr</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LingrClient.cs" />
+    <Compile Include="System.Json\JsonArray.cs" />
+    <Compile Include="System.Json\JsonObject.cs" />
+    <Compile Include="System.Json\JsonPrimitive.cs" />
+    <Compile Include="System.Json\JsonReader.cs" />
+    <Compile Include="System.Json\JsonType.cs" />
+    <Compile Include="System.Json\JsonValue.cs" />
+    <Compile Include="System.Json\MergedEnumerable.cs" />
+    <Compile Include="System\UriTemplate.cs" />
+    <Compile Include="System\UriTemplateEquivalenceComparer.cs" />
+    <Compile Include="System\UriTemplateMatch.cs" />
+    <Compile Include="System\UriTemplateMatchException.cs" />
+    <Compile Include="System\UriTemplateTable.cs" />
+    <Compile Include="MonoTODOAttribute.cs" />
+    <Compile Include="Driver.cs" />
+    <Compile Include="System.Runtime.Serialization.Json\DataContractJsonSerializer.cs" />
+    <Compile Include="System.Runtime.Serialization.Json\IXmlJsonReaderInitializer.cs" />
+    <Compile Include="System.Runtime.Serialization.Json\IXmlJsonWriterInitializer.cs" />
+    <Compile Include="System.Runtime.Serialization.Json\JsonReader.cs" />
+    <Compile Include="System.Runtime.Serialization.Json\JsonReaderWriterFactory.cs" />
+    <Compile Include="System.Runtime.Serialization.Json\JsonSerializationReader.cs" />
+    <Compile Include="System.Runtime.Serialization.Json\JsonSerializationWriter.cs" />
+    <Compile Include="System.Runtime.Serialization.Json\JsonWriter.cs" />
+    <Compile Include="System.Runtime.Serialization.Json\TypeMap.cs" />
+    <Compile Include="LingrContractTypes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="System.Json\" />
+    <Folder Include="System\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
