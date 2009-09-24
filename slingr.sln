@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "slingr", "slingr\slingr.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "slingr-radar", "slingr-radar\slingr-radar.csproj", "{72D2AA28-3FD3-4377-BD0A-C0A5DC8E5C54}"
 EndProject
+Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Packages", "Packages.mdproj", "{F799AF66-2247-4508-ADAB-87D0BB7F3D1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -39,6 +41,12 @@ Global
 		{F5355FBD-9FEB-4830-8F1A-FC966A7356A6}.Release|iPhone.Build.0 = Release|Any CPU
 		{F5355FBD-9FEB-4830-8F1A-FC966A7356A6}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{F5355FBD-9FEB-4830-8F1A-FC966A7356A6}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{F799AF66-2247-4508-ADAB-87D0BB7F3D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F799AF66-2247-4508-ADAB-87D0BB7F3D1A}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{F799AF66-2247-4508-ADAB-87D0BB7F3D1A}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{F799AF66-2247-4508-ADAB-87D0BB7F3D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F799AF66-2247-4508-ADAB-87D0BB7F3D1A}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{F799AF66-2247-4508-ADAB-87D0BB7F3D1A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = slingr-radar\slingr-radar.csproj
