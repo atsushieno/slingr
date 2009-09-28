@@ -44,7 +44,7 @@ namespace Slingr.Radar
 			container = new Container (); 
 			var menu = new ContextMenuStrip ();
 			menu.Items.Add ("&About", null, delegate {
-				MessageBox.Show ("Slingr Radar 0.1 by atsushieno");
+				MessageBox.Show ("Slingr Radar by atsushieno");
 			});
 			menu.Items.Add ("&Quit", null, delegate {
 				ProcessApplicationExit ();
