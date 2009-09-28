@@ -19,6 +19,8 @@ PROJECT_REFERENCES =  \
 BUILD_DIR = bin/Debug
 
 SLINGR_DLL_SOURCE=../slingr/bin/Debug/slingr.dll
+SLINGR_DLL_MDB_SOURCE=../slingr/bin/Debug/slingr.dll.mdb
+SLINGR_DLL_MDB=$(BUILD_DIR)/slingr.dll.mdb
 SLINGR_RADAR_EXE_MDB_SOURCE=bin/Debug/slingr-radar.exe.mdb
 SLINGR_RADAR_EXE_MDB=$(BUILD_DIR)/slingr-radar.exe.mdb
 
@@ -35,6 +37,7 @@ PROJECT_REFERENCES =  \
 BUILD_DIR = bin/Release
 
 SLINGR_DLL_SOURCE=../slingr/bin/Release/slingr.dll
+SLINGR_DLL_MDB=
 SLINGR_RADAR_EXE_MDB=
 
 endif
@@ -50,6 +53,8 @@ PROJECT_REFERENCES =  \
 BUILD_DIR = bin/Debug
 
 SLINGR_DLL_SOURCE=../slingr/bin/Debug/slingr.dll
+SLINGR_DLL_MDB_SOURCE=../slingr/bin/Debug/slingr.dll.mdb
+SLINGR_DLL_MDB=$(BUILD_DIR)/slingr.dll.mdb
 SLINGR_RADAR_EXE_MDB_SOURCE=bin/Debug/slingr-radar.exe.mdb
 SLINGR_RADAR_EXE_MDB=$(BUILD_DIR)/slingr-radar.exe.mdb
 
@@ -66,6 +71,7 @@ PROJECT_REFERENCES =  \
 BUILD_DIR = bin/Release
 
 SLINGR_DLL_SOURCE=../slingr/bin/Release/slingr.dll
+SLINGR_DLL_MDB=
 SLINGR_RADAR_EXE_MDB=
 
 endif
@@ -81,6 +87,8 @@ PROJECT_REFERENCES =  \
 BUILD_DIR = bin/Debug
 
 SLINGR_DLL_SOURCE=../slingr/bin/Debug/slingr.dll
+SLINGR_DLL_MDB_SOURCE=../slingr/bin/Debug/slingr.dll.mdb
+SLINGR_DLL_MDB=$(BUILD_DIR)/slingr.dll.mdb
 SLINGR_RADAR_EXE_MDB_SOURCE=bin/Debug/slingr-radar.exe.mdb
 SLINGR_RADAR_EXE_MDB=$(BUILD_DIR)/slingr-radar.exe.mdb
 
@@ -97,6 +105,7 @@ PROJECT_REFERENCES =  \
 BUILD_DIR = bin/Release
 
 SLINGR_DLL_SOURCE=../slingr/bin/Release/slingr.dll
+SLINGR_DLL_MDB=
 SLINGR_RADAR_EXE_MDB=
 
 endif
@@ -106,6 +115,7 @@ SATELLITE_ASSEMBLY_NAME=$(notdir $(basename $(ASSEMBLY))).resources.dll
 
 PROGRAMFILES = \
 	$(SLINGR_DLL) \
+	$(SLINGR_DLL_MDB) \
 	$(SLINGR_RADAR_EXE_MDB)  
 
 BINARIES = \
@@ -148,6 +158,7 @@ include $(top_srcdir)/Makefile.include
 
 
 $(eval $(call emit-deploy-target,SLINGR_DLL))
+$(eval $(call emit-deploy-target,SLINGR_DLL_MDB))
 $(eval $(call emit-deploy-wrapper,SLINGR_RADAR,slingr-radar,x))
 
 
@@ -171,9 +182,9 @@ install-local: $(ASSEMBLY) $(ASSEMBLY_MDB)
 	mkdir -p '$(DESTDIR)$(libdir)/$(PACKAGE)'
 	$(call cp,$(ASSEMBLY),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call cp,$(ASSEMBLY_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
-	mkdir -p '$(DESTDIR)$(libdir)\$(PACKAGE)'
-	$(call cp,$(SLINGR_DLL),$(DESTDIR)$(libdir)\$(PACKAGE))
-	$(call cp,$(SLINGR_RADAR_EXE_MDB),$(DESTDIR)$(libdir)\$(PACKAGE))
+	$(call cp,$(SLINGR_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call cp,$(SLINGR_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call cp,$(SLINGR_RADAR_EXE_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	mkdir -p '$(DESTDIR)$(bindir)'
 	$(call cp,$(SLINGR_RADAR),$(DESTDIR)$(bindir))
 	make post-install-local-hook prefix=$(prefix)
@@ -183,8 +194,9 @@ uninstall-local: $(ASSEMBLY) $(ASSEMBLY_MDB)
 	make uninstall-satellite-assemblies prefix=$(prefix)
 	$(call rm,$(ASSEMBLY),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call rm,$(ASSEMBLY_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
-	$(call rm,$(SLINGR_DLL),$(DESTDIR)$(libdir)\$(PACKAGE))
-	$(call rm,$(SLINGR_RADAR_EXE_MDB),$(DESTDIR)$(libdir)\$(PACKAGE))
+	$(call rm,$(SLINGR_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call rm,$(SLINGR_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call rm,$(SLINGR_RADAR_EXE_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call rm,$(SLINGR_RADAR),$(DESTDIR)$(bindir))
 	make post-uninstall-local-hook prefix=$(prefix)
 
