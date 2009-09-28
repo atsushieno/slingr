@@ -1,7 +1,11 @@
-slingr is a C#-based lingr client library for Mono and .NET.
+slingr is a C#-based lingr[*1] client library for Mono and .NET.
 
-slingr-radar is a sample "radar" application.
+slingr-radar is a sample "radar" application. It is based on winforms
+and won't work on Mac (as NotifyIcon is not supported). For Mac there is
+an official Radar tool [*2].
 
-They are quite fragile and may have not a few bugs.
+They may be still fragile and may have a few bugs.
 Bug reports and patches are welcome.
 
+[*1] http://lingr.com (note that it is still in alpha and only for testers).
+[*2] http://radar.lingr.com/
