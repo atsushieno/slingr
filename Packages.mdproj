@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>PackagingProject</ItemType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F799AF66-2247-4508-ADAB-87D0BB7F3D1A}</ProjectGuid>
+    <Packages>
+      <Packages>
+        <Package name="Microsoft Windows Binaries">
+          <Builder targetFile="slingr-0.1-bin.zip" platform="Windows" configuration="Release" ctype="BinariesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="slingr\slingr.csproj" />
+              <SolutionItemReference path="slingr-radar\slingr-radar.csproj" />
+            </ChildEntries>
+            <RootEntry path="slingr.sln" id=":root:" />
+          </Builder>
+        </Package>
+      </Packages>
+    </Packages>
+  </PropertyGroup>
+</Project>
