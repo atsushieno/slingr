@@ -8,7 +8,7 @@
     <Packages>
       <Packages>
         <Package name="Microsoft Windows Binaries">
-          <Builder targetFile="slingr-0.1-bin.zip" platform="Windows" configuration="Release" ctype="BinariesZipPackageBuilder">
+          <Builder targetFile="slingr-0.2-bin.zip" platform="Windows" configuration="Release" ctype="BinariesZipPackageBuilder">
             <ChildEntries>
               <SolutionItemReference path="slingr\slingr.csproj" />
               <SolutionItemReference path="slingr-radar\slingr-radar.csproj" />
@@ -18,5 +18,6 @@
         </Package>
       </Packages>
     </Packages>
+    <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
 </Project>
