@@ -18,7 +18,6 @@ PROJECT_REFERENCES =  \
 	../slingr/bin/Debug/slingr.dll
 BUILD_DIR = bin/Debug
 
-LINGR_ICO_SOURCE=lingr.ico
 SLINGR_DLL_SOURCE=../slingr/bin/Debug/slingr.dll
 SLINGR_RADAR_EXE_MDB_SOURCE=bin/Debug/slingr-radar.exe.mdb
 SLINGR_RADAR_EXE_MDB=$(BUILD_DIR)/slingr-radar.exe.mdb
@@ -35,7 +34,6 @@ PROJECT_REFERENCES =  \
 	../slingr/bin/Release/slingr.dll
 BUILD_DIR = bin/Release
 
-LINGR_ICO_SOURCE=lingr.ico
 SLINGR_DLL_SOURCE=../slingr/bin/Release/slingr.dll
 SLINGR_RADAR_EXE_MDB=
 
@@ -51,7 +49,6 @@ PROJECT_REFERENCES =  \
 	../slingr/bin/Debug/slingr.dll
 BUILD_DIR = bin/Debug
 
-LINGR_ICO_SOURCE=lingr.ico
 SLINGR_DLL_SOURCE=../slingr/bin/Debug/slingr.dll
 SLINGR_RADAR_EXE_MDB_SOURCE=bin/Debug/slingr-radar.exe.mdb
 SLINGR_RADAR_EXE_MDB=$(BUILD_DIR)/slingr-radar.exe.mdb
@@ -68,7 +65,6 @@ PROJECT_REFERENCES =  \
 	../slingr/bin/Release/slingr.dll
 BUILD_DIR = bin/Release
 
-LINGR_ICO_SOURCE=lingr.ico
 SLINGR_DLL_SOURCE=../slingr/bin/Release/slingr.dll
 SLINGR_RADAR_EXE_MDB=
 
@@ -84,7 +80,6 @@ PROJECT_REFERENCES =  \
 	../slingr/bin/Debug/slingr.dll
 BUILD_DIR = bin/Debug
 
-LINGR_ICO_SOURCE=lingr.ico
 SLINGR_DLL_SOURCE=../slingr/bin/Debug/slingr.dll
 SLINGR_RADAR_EXE_MDB_SOURCE=bin/Debug/slingr-radar.exe.mdb
 SLINGR_RADAR_EXE_MDB=$(BUILD_DIR)/slingr-radar.exe.mdb
@@ -101,7 +96,6 @@ PROJECT_REFERENCES =  \
 	../slingr/bin/Release/slingr.dll
 BUILD_DIR = bin/Release
 
-LINGR_ICO_SOURCE=lingr.ico
 SLINGR_DLL_SOURCE=../slingr/bin/Release/slingr.dll
 SLINGR_RADAR_EXE_MDB=
 
@@ -111,7 +105,6 @@ AL=al2
 SATELLITE_ASSEMBLY_NAME=$(notdir $(basename $(ASSEMBLY))).resources.dll
 
 PROGRAMFILES = \
-	$(LINGR_ICO) \
 	$(SLINGR_DLL) \
 	$(SLINGR_RADAR_EXE_MDB)  
 
@@ -121,7 +114,6 @@ BINARIES = \
 
 RESGEN=resgen2
 
-LINGR_ICO = $(BUILD_DIR)/lingr.ico
 SLINGR_DLL = $(BUILD_DIR)/slingr.dll
 SLINGR_RADAR = $(BUILD_DIR)/slingr-radar
 
@@ -131,7 +123,8 @@ FILES = \
 DATA_FILES = 
 
 RESOURCES = \
-	lingr.ico 
+	lingr.ico \
+	lingr-error.ico 
 
 EXTRAS = \
 	slingr-radar.in 
@@ -154,7 +147,6 @@ include $(top_srcdir)/Makefile.include
 
 
 
-$(eval $(call emit-deploy-target,LINGR_ICO))
 $(eval $(call emit-deploy-target,SLINGR_DLL))
 $(eval $(call emit-deploy-wrapper,SLINGR_RADAR,slingr-radar,x))
 
@@ -180,7 +172,6 @@ install-local: $(ASSEMBLY) $(ASSEMBLY_MDB)
 	$(call cp,$(ASSEMBLY),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call cp,$(ASSEMBLY_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	mkdir -p '$(DESTDIR)$(libdir)\$(PACKAGE)'
-	$(call cp,$(LINGR_ICO),$(DESTDIR)$(libdir)\$(PACKAGE))
 	$(call cp,$(SLINGR_DLL),$(DESTDIR)$(libdir)\$(PACKAGE))
 	$(call cp,$(SLINGR_RADAR_EXE_MDB),$(DESTDIR)$(libdir)\$(PACKAGE))
 	mkdir -p '$(DESTDIR)$(bindir)'
@@ -192,7 +183,6 @@ uninstall-local: $(ASSEMBLY) $(ASSEMBLY_MDB)
 	make uninstall-satellite-assemblies prefix=$(prefix)
 	$(call rm,$(ASSEMBLY),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call rm,$(ASSEMBLY_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
-	$(call rm,$(LINGR_ICO),$(DESTDIR)$(libdir)\$(PACKAGE))
 	$(call rm,$(SLINGR_DLL),$(DESTDIR)$(libdir)\$(PACKAGE))
 	$(call rm,$(SLINGR_RADAR_EXE_MDB),$(DESTDIR)$(libdir)\$(PACKAGE))
 	$(call rm,$(SLINGR_RADAR),$(DESTDIR)$(bindir))

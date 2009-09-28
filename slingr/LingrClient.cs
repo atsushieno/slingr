@@ -176,6 +176,8 @@ namespace Slingr
 		
 		public event EventHandler<ObserveEventArgs> NewEventsArrived;
 		public event EventHandler LoopAborted;
+		public event EventHandler<ObserveFailedEventArgs> ObserveFailed;
+		public event EventHandler ObserveRecovered;
 
 		bool loop = true;
 
@@ -206,12 +208,22 @@ namespace Slingr
 		
 		void ObserveLoopCore ()
 		{
+			int wait = 1;
 			while (loop) {
 				try {
 					var ret = Observe ();
+					if (wait != 1 && ObserveRecovered != null)
+						ObserveRecovered (this, EventArgs.Empty);
+					wait = 1;
 					if (ret.Events != null && NewEventsArrived != null)
 						NewEventsArrived (this, new ObserveEventArgs (ret));
 					this.Counter = Math.Max (this.Counter, ret.Counter);
+				} catch (WebException ex) {
+					if (ObserveFailed != null)
+						ObserveFailed (this, new ObserveFailedEventArgs (ex));
+					wait <<= 1;
+					for (int i = 0; loop && i < wait * 10; i++)
+						Thread.Sleep (1000);
 				} catch (Exception ex) {
 					Console.WriteLine ("FIXME: handle errors: " + ex);
 					loop = false;
@@ -246,6 +258,16 @@ namespace Slingr
 					yield return e;
 			}
 		}
+	}
+
+	public class ObserveFailedEventArgs : EventArgs
+	{
+		internal ObserveFailedEventArgs (WebException ex)
+		{
+			Error = ex;
+		}
+		
+		public WebException Error { get; private set; }
 	}
 
 	public class LingrException : Exception

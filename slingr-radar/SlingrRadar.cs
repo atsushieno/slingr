@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -35,13 +36,11 @@ namespace Slingr.Radar
 		Container container;
 		NotifyIcon notify_icon;
 		LingrClient client;
+		Icon icon_normal, icon_error;
+		EventHandler idle_handler;
 
 		public SlingrRadar ()
 		{
-			SetupUser ();
-			if (client.Session == null)
-				Application.Exit ();
-
 			container = new Container (); 
 			var menu = new ContextMenuStrip ();
 			menu.Items.Add ("&About", null, delegate {
@@ -51,19 +50,33 @@ namespace Slingr.Radar
 				ProcessApplicationExit ();
 			});
 
+			icon_normal = new Icon (GetType ().Assembly.GetManifestResourceStream ("lingr.ico"));
+			icon_error = new Icon (GetType ().Assembly.GetManifestResourceStream ("lingr-error.ico"));
 			notify_icon = new NotifyIcon (container) {
 				ContextMenuStrip = menu,
-				Icon = new Icon (GetType ().Assembly.GetManifestResourceStream ("lingr.ico"))};
-			notify_icon.Visible = true;
-			ShowBalloonTip ("Started Radar", "observing: " + String.Join (", ", client.Rooms.ToArray ()), ToolTipIcon.Info);
+				Icon = icon_normal};
 			notify_icon.DoubleClick += delegate {
 				System.Diagnostics.Process.Start ("http://www.lingr.com");
 			};
-			Application.Idle += delegate {
-				if (!started)
-					StartObserving ();
-				started = true;
+			idle_handler = delegate {
+				Application.Idle -= idle_handler;
+				try {
+					SetupUser ();
+				} catch (WebException ex) {
+					MessageBox.Show (String.Format ("Web connection failure. Going to quit ({0})", ex.Message));
+					Application.Exit ();
+					return;
+				}
+				if (client.Session == null) {
+					Application.Exit ();
+					return;
+				}
+
+				notify_icon.Visible = true;
+				ShowBalloonTip ("Started Radar", "observing: " + String.Join (", ", client.Rooms.ToArray ()), ToolTipIcon.Info);
+				StartObserving ();
 			};
+			Application.Idle += idle_handler;
 		}
 		
 		void ShowBalloonTip (string title, string text, ToolTipIcon tipIcon)
@@ -71,7 +84,6 @@ namespace Slingr.Radar
 			notify_icon.ShowBalloonTip (800, title, text, tipIcon);
 		}
 
-		bool started;
 		const string userNameKey = "SlingrRadar.regv1.user";
 		const string passwordKey = "SlingrRadar.regv1.password";
 
@@ -165,6 +177,14 @@ namespace Slingr.Radar
 		
 		public void StartObserving ()
 		{
+			client.ObserveFailed += delegate (object o, ObserveFailedEventArgs e) {
+				notify_icon.Icon = icon_error;
+				notify_icon.Text = e.Error.Message;
+			};
+			client.ObserveRecovered += delegate {
+				notify_icon.Icon = icon_normal;
+				notify_icon.Text = String.Empty;
+			};
 			client.LoopAborted += delegate {
 				ProcessApplicationExit ();
 			};
@@ -199,7 +219,9 @@ namespace Slingr.Radar
 			try {
 				client.Dispose ();
 			} catch (LingrException ex) {
-				ShowBalloonTip ("Error on closing lingr", ex.Message, ToolTipIcon.Error);
+				ShowBalloonTip ("Error on closing lingr", ex.Message + " (Closing anyways)", ToolTipIcon.Error);
+			} catch (WebException ex) {
+				ShowBalloonTip ("Network error", ex.Message + " (Closing anyways)", ToolTipIcon.Error);
 			} finally {
 				Thread.Sleep (3000);
 				notify_icon.Visible = false;

@@ -45,8 +45,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <EmbeddedResource Include="lingr.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="lingr.ico" />
+    <EmbeddedResource Include="lingr-error.ico" />
   </ItemGroup>
 </Project>
