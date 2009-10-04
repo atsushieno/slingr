@@ -9,6 +9,8 @@
     <OutputType>WinExe</OutputType>
     <AssemblyName>slingr-radar</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ReleaseVersion>0.2</ReleaseVersion>
+    <RootNamespace>slingrradar</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,7 +47,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <EmbeddedResource Include="lingr.ico" />
-    <EmbeddedResource Include="lingr-error.ico" />
+    <EmbeddedResource Include="lingr.ico">
+      <LogicalName>lingr.ico</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="lingr-error.ico">
+      <LogicalName>lingr-error.ico</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
