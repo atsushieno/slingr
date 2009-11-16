@@ -197,7 +197,7 @@ namespace Slingr.Radar
 					ShowBalloonTip (String.Empty, String.Format ("new {0} messages", l.Count), ToolTipIcon.None);
 				else {
 					foreach (var m in l)
-						ShowBalloonTip (m.Body.NickName, m.Body.Text, ToolTipIcon.None);
+						ShowBalloonTip (m.NickName, m.Text, ToolTipIcon.None);
 				}
 			};
 			client.StartObserve ();

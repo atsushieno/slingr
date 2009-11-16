@@ -449,25 +449,6 @@ namespace Slingr
 	[DataContract]
 	public abstract class RoomEventBase
 	{
-	}
-
-	[DataContract]
-	public class RoomMessage : RoomEventBase
-	{
-		[DataMember (Name = "message")]
-		public RoomMessageBody Body { get; set; }
-	}
-
-	[DataContract]
-	public class RoomPresence : RoomEventBase
-	{
-		[DataMember (Name = "presence")]
-		public RoomPresenceBody Body { get; set; }
-	}
-
-	[DataContract]
-	public abstract class RoomEventBodyBase
-	{
 		[DataMember (Name = "timestamp")]
 		public string Timestamp { get; set; }
 		[DataMember (Name = "icon_url")]
@@ -482,8 +463,8 @@ namespace Slingr
 		public string Room { get; set; }
 	}
 
-	[DataContract]
-	public class RoomPresenceBody : RoomEventBodyBase
+	[DataContract (Name = "message")]
+	public class RoomMessage : RoomEventBase
 	{
 		[DataMember (Name = "status")]
 		public string Status { get; set; }
@@ -493,8 +474,8 @@ namespace Slingr
 		public bool? IsFirst { get; set; }
 	}
 
-	[DataContract]
-	public class RoomMessageBody : RoomEventBodyBase
+	[DataContract (Name = "presence")]
+	public class RoomPresence : RoomEventBase
 	{
 		[DataMember (Name = "type")]
 		public string Type { get; set; }
@@ -554,17 +535,15 @@ namespace Slingr
 	public class SayResponse : LingrResponse
 	{
 		[DataMember (Name = "message")]
-		public RoomMessageBody Message { get; set; }
+		public RoomMessage Message { get; set; }
 	}
 	
 	[DataContract]
-	[KnownType (typeof (RoomMessage))]
-	[KnownType (typeof (RoomPresence))]
 	public class ObserveResponse : LingrResponse
 	{
 		[DataMember (Name = "counter")]
 		public int Counter { get; set; }
 		[DataMember (Name = "events")]
-		public object [] Events { get; set; }
+		public RoomEventBase [] Events { get; set; }
 	}
 }
