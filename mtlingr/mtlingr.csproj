@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A86EE6EE-D6CA-43D7-A126-DB2DA33A18ED}</ProjectGuid>
+    <ProjectTypeGuids>{E613F3A2-FE9C-494F-B74E-F63BCB86FEA6};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>mtlingr</RootNamespace>
+    <MainNibFile>MainWindow.xib</MainNibFile>
+    <AssemblyName>mtlingr</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ReleaseVersion>0.2</ReleaseVersion>
+    <MtouchSdkVersion>3.0</MtouchSdkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+    <MtouchDebug>True</MtouchDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchDebug>False</MtouchDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>True</MtouchDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>False</MtouchDebug>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="..\slingr\System\UriTemplate.cs" />
+    <Compile Include="..\slingr\System\UriTemplateEquivalenceComparer.cs" />
+    <Compile Include="..\slingr\System\UriTemplateMatch.cs" />
+    <Compile Include="..\slingr\System\UriTemplateMatchException.cs" />
+    <Compile Include="..\slingr\System\UriTemplateTable.cs" />
+    <Compile Include="..\slingr\System.Json\JsonArray.cs" />
+    <Compile Include="..\slingr\System.Json\JsonObject.cs" />
+    <Compile Include="..\slingr\System.Json\JsonPrimitive.cs" />
+    <Compile Include="..\slingr\System.Json\JsonReader.cs" />
+    <Compile Include="..\slingr\System.Json\JsonType.cs" />
+    <Compile Include="..\slingr\System.Json\JsonValue.cs" />
+    <Compile Include="..\slingr\System.Json\MergedEnumerable.cs" />
+    <Compile Include="..\slingr\System.Runtime.Serialization.Json\DataContractJsonSerializer.cs" />
+    <Compile Include="..\slingr\System.Runtime.Serialization.Json\IXmlJsonReaderInitializer.cs" />
+    <Compile Include="..\slingr\System.Runtime.Serialization.Json\IXmlJsonWriterInitializer.cs" />
+    <Compile Include="..\slingr\System.Runtime.Serialization.Json\JsonReader.cs" />
+    <Compile Include="..\slingr\System.Runtime.Serialization.Json\JsonReaderWriterFactory.cs" />
+    <Compile Include="..\slingr\System.Runtime.Serialization.Json\JsonSerializationReader.cs" />
+    <Compile Include="..\slingr\System.Runtime.Serialization.Json\JsonSerializationWriter.cs" />
+    <Compile Include="..\slingr\System.Runtime.Serialization.Json\JsonWriter.cs" />
+    <Compile Include="..\slingr\System.Runtime.Serialization.Json\TypeMap.cs" />
+    <Compile Include="..\slingr\LingrClient.cs" />
+    <Compile Include="..\slingr\LingrContractTypes.cs" />
+    <Compile Include="..\slingr\MonoTODOAttribute.cs" />
+    <Compile Include="LoginSettingsViewController.xib.cs">
+      <DependentUpon>LoginSettingsViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="LoginSettingsViewController.xib.designer.cs">
+      <DependentUpon>LoginSettingsViewController.xib</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties InternalTargetFrameworkVersion="IPhone" />
+    </MonoDevelop>
+  </ProjectExtensions>
+  <ItemGroup>
+    <Page Include="LoginSettingsViewController.xib" />
+  </ItemGroup>
+</Project>
