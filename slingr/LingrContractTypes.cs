@@ -420,13 +420,6 @@ namespace Slingr
 	[DataContract]
 	public class ShowRoomInfo
 	{
-		[DataMember (Name = "room")]
-		public RoomBody Room { get; set; }
-	}
-
-	[DataContract]
-	public class RoomBody
-	{
 		[DataMember (Name = "messages")]
 		public RoomMessage [] Messages { get; set; }
 		
