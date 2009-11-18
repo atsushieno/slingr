@@ -188,19 +188,22 @@ namespace Slingr.Radar
 			client.LoopAborted += delegate {
 				ProcessApplicationExit ();
 			};
-			client.NewEventsArrived += delegate (object o, ObserveEventArgs e) {
-				var l = new List<RoomMessage> ();
-				foreach (var ev in e.Events)
-					if (ev is RoomMessage)
-						l.Add ((RoomMessage) ev);
-				if (l.Count > 3)
-					ShowBalloonTip (String.Empty, String.Format ("new {0} messages", l.Count), ToolTipIcon.None);
-				else {
-					foreach (var m in l)
-						ShowBalloonTip (m.NickName, m.Text, ToolTipIcon.None);
-				}
-			};
+			client.NewEventsArrived += NewEventsArrived;
 			client.StartObserve ();
+		}
+		
+		void NewEventsArrived (object o, ObserveEventArgs e)
+		{
+			var l = new List<RoomMessage> ();
+			foreach (var ev in e.Events)
+				if (ev is RoomMessage)
+					l.Add ((RoomMessage) ev);
+			if (l.Count > 3)
+				ShowBalloonTip (String.Empty, String.Format ("new {0} messages", l.Count), ToolTipIcon.None);
+			else {
+				foreach (var m in l)
+					ShowBalloonTip (m.Body.NickName, m.Body.Text, ToolTipIcon.None);
+			}
 		}
 
 		protected override void Dispose (bool disposing)

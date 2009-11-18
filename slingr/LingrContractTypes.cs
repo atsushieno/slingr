@@ -442,10 +442,21 @@ namespace Slingr
 	[DataContract]
 	public abstract class RoomEventBase
 	{
+	}
+
+	[DataContract]
+	public abstract class RoomEventBodyBase
+	{
+		[DataMember (Name = "id")]
+		public string Id { get; set; }
 		[DataMember (Name = "timestamp")]
 		public string Timestamp { get; set; }
 		[DataMember (Name = "icon_url")]
 		public string IconUrl { get; set; }
+		[DataMember (Name = "type")]
+		public string Type { get; set; }
+		[DataMember (Name = "speaker_id")]
+		public string SpeakerId { get; set; }
 		[DataMember (Name = "nickname")]
 		public string NickName { get; set; }
 		[DataMember (Name = "public_session_id")]
@@ -454,6 +465,8 @@ namespace Slingr
 		public string Text { get; set; }
 		[DataMember (Name = "room")]
 		public string Room { get; set; }
+		[DataMember (Name = "local_id")]
+		public string LocalId { get; set; }
 	}
 
 	[DataContract (Name = "message")]
@@ -461,23 +474,27 @@ namespace Slingr
 	{
 		[DataMember (Name = "status")]
 		public string Status { get; set; }
-		[DataMember (Name = "username")]
-		public string UserName { get; set; }
 		[DataMember (Name = "first")]
 		public bool? IsFirst { get; set; }
+		[DataMember (Name = "message")]
+		public RoomMessageBody Body { get; set; }
 	}
 
 	[DataContract (Name = "presence")]
 	public class RoomPresence : RoomEventBase
 	{
-		[DataMember (Name = "type")]
-		public string Type { get; set; }
-		[DataMember (Name = "local_id")]
-		public string LocalId { get; set; }
-		[DataMember (Name = "speaker_id")]
-		public string SpeakerId { get; set; }
-		[DataMember (Name = "id")]
-		public string Id { get; set; }
+		[DataMember (Name = "message")]
+		public RoomPresenceBody Body { get; set; }
+	}
+	
+	[DataContract]
+	public class RoomMessageBody : RoomEventBodyBase
+	{
+	}
+	
+	[DataContract]
+	public class RoomPresenceBody : RoomEventBodyBase
+	{
 	}
 	
 	[DataContract]
