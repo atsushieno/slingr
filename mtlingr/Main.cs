@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -34,7 +35,8 @@ namespace mtlingr
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 			var nc = new UINavigationController ();
 			navigation_controller = nc;
-			nc.PushViewController (new LoginSettingsViewController () { AppDelegate = this }, false);
+			var lvc = new LoginSettingsViewController () { AppDelegate = this };
+			nc.PushViewController (lvc, false);
 
 			room_list_controller = new UITableViewController ();
 			room_controller = new UITableViewController ();
@@ -43,8 +45,18 @@ namespace mtlingr
 			window.AddSubview (nc.View);
 			window.MakeKeyAndVisible ();
 
+			if (File.Exists (cfgfile)) {
+				string [] lines = File.ReadAllLines (cfgfile);
+				//Login (lines [0], lines [1]);
+				lvc.ViewLoaded += delegate {
+					lvc.UserName = lines [0];
+					lvc.Password = lines [1];
+				};
+			}
 			return true;
 		}
+
+		string cfgfile = Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.Personal), "lingr-settings.txt");
 
 		// This method is required in iPhoneOS 3.0
 		public override void OnActivated (UIApplication application)
@@ -60,6 +72,12 @@ namespace mtlingr
 				client = new LingrClient ();
 				client.CreateSession (user, pass);
 				Console.WriteLine ("Login successful.");
+				// save settings.
+				using (var sw = File.CreateText (cfgfile)) {
+					sw.WriteLine (user);
+					sw.WriteLine (pass);
+				}
+
 				room_list_controller.TableView.DataSource = new RoomListDataSource (client.GetRooms ());
 				room_list_controller.TableView.Delegate = new RoomListDelegate () { AppDelegate = this };
 				navigation_controller.PopViewControllerAnimated (false);
@@ -72,6 +90,7 @@ namespace mtlingr
 		
 		public void GotoRoom (string room)
 		{
+			room_controller.TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 			room_controller.TableView.DataSource = new RoomDataSource (client, room);
 			navigation_controller.PushViewController (room_controller, true);
 		}
@@ -118,14 +137,6 @@ namespace mtlingr
 
 		public RoomDataSource (LingrClient client, string roomName)
 		{
-			var sr = new ShowResponse ();
-			sr.Rooms = new [] { new ShowRoomInfo () { Name = "dummy" }};
-			var ds = new System.Runtime.Serialization.Json.DataContractJsonSerializer (typeof (ShowResponse));
-			using (var ms = new System.IO.MemoryStream ()) {
-				ds.WriteObject (ms, sr);
-				Console.WriteLine (System.Text.Encoding.UTF8.GetString (ms.ToArray ()));
-			}
-
 			this.client = client;
 			room_name = roomName;
 			client.Subscribe (roomName);
@@ -140,8 +151,18 @@ namespace mtlingr
 
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
+			var msg = room.Messages [indexPath.Row];
 			var ret = new UITableViewCell ();
-			ret.TextLabel.Text = room.Messages [indexPath.Row].Text;
+			var width = UIScreen.MainScreen.Bounds.Width;
+			var l = new UILabel (new RectangleF (0, 0, width, 16));
+			l.Font = UIFont.BoldSystemFontOfSize (16);
+			l.Text = msg.NickName;
+			var m = new UILabel (new RectangleF (0, 16, width, 32));
+			m.Text = msg.Text;
+			m.LineBreakMode = UILineBreakMode.CharacterWrap;
+			m.AutoresizingMask = UIViewAutoresizing.FlexibleHeight;
+			ret.AddSubview (l);
+			ret.AddSubview (m);
 			return ret;
 		}
 	}

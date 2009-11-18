@@ -39,6 +39,24 @@ namespace mtlingr
 		
 		public AppDelegate AppDelegate { get; set; }
 		
+		public event Action ViewLoaded;
+
+		// they are just for demo use.
+		public string UserName {
+			get { return textbox_username.Text; }
+			set { textbox_username.Text = value; }
+		}
+		public string Password {
+			set { textbox_password.Text = value; }
+		}
+		
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			if (ViewLoaded != null)
+				ViewLoaded ();
+		}
+
 		void Login ()
 		{
 			label_error_message.Text = AppDelegate.Login (textbox_username.Text, textbox_password.Text);
